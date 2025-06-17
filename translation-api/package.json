@@ -5,11 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node --watch server.js",
-    "migrate": "npx prisma migrate dev"
-  },
-    "imports": {
-    "@/*":"./src/*"
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "generate": "prisma generate",
+    "dev": "npm run generate && node --watch src/server.js",
+    "prod": "npm ru generate && node src/server.js"
   },
   "dependencies": {
     "@prisma/client": "^5.15.0",
