@@ -1,0 +1,46 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - translation_net
+
+  translation-api:
+    build:
+      context: ./translation-api
+      dockerfile: Dockerfile
+    container_name: translation-api
+    ports:
+      - "3000:3000"
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - translation_db:/app/prisma
+    networks:
+      - translation_net
+    depends_on:
+      - rabbitmq
+
+  translation-worker:
+    build:
+      context: ./translation-worker
+      dockerfile: Dockerfile
+    container_name: translation-worker
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    networks:
+      - translation_net
+    depends_on:
+      - rabbitmq 
+
+networks:
+  translation_net:
+    driver: bridge
+
+volumes:
+  translation_db:

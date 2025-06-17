@@ -1,6 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import { swaggerOptions } from '../swagger.config.js';
 
 import { CreateTranslationUseCase } from './application/use-cases/createTranslation.js';
 import { GetTranslationStatusUseCase } from './application/use-cases/getTranslationStatusUseCase.js';
@@ -11,6 +14,7 @@ import { QueueService } from './infrastructure/messaging/queueService.js';
 import { QueueConsumer } from './infrastructure/messaging/queueConsumer.js';
 
 import { TranslationController } from './presentation/controllers/translationController.js';
+import { createTranslationRoutes } from './presentation/routes/translatioRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -33,11 +37,15 @@ async function server() {
         getTranslationStatusUseCase
     );
 
-    app.post('/translations', (req, res) => translationController.create(req, res));
-    app.get('/translations/:id', (req, res) => translationController.getStatus(req, res));
+    const openDocs = swaggerJsdoc(swaggerOptions);
+    app.use('/api-docs', swaggerUi.serve. swaggerUi.setup(openDocs));
+
+    const translationRoutes = createTranslationRoutes(translationController)
+    app.use(translationRoutes);
 
     app.listen(PORT, () => {
         console.log(`🚀 API rodando na porta ${PORT}`);
+        console.log(`📚 Documentação da API disponível em http://localhost:${PORT}/api-docs`);
     });
 }
 
