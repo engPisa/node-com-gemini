@@ -1,15 +1,16 @@
 import 'dotenv/config';
 import express from 'express';
 
-import { CreateTranslationUseCase } from '@/application/use-cases/createTranslation.js';
-import { GetTranslationStatusUseCase } from '@/application/use-cases/GetTranslationStatusUseCase.js';
-import { ProcessTranslationResultUseCase } from '@/application/use-cases/ProcessTranslationResultUseCase.js';
 
-import { PrismaTranslationRepository } from '@/infrastructure/database/prismaTranslationRepository.js';
-import { QueueService } from '@/infrastructure/messaging/queueService.js';
-import { QueueConsumer } from '@/infrastructure/messaging/queueConsumer.js';
+import { CreateTranslationUseCase } from './application/use-cases/createTranslation.js';
+import { GetTranslationStatusUseCase } from './application/use-cases/getTranslationStatusUseCase.js';
+import { ProcessTranslationResultUseCase } from './application/use-cases/processTranslationResultUseCase.js';
 
-import { TranslationController } from '@/presentation/controllers/translationController.js';
+import { PrismaTranslationRepository } from './infrastructure/database/prismaTranslationRepository.js';
+import { QueueService } from './infrastructure/messaging/queueService.js';
+import { QueueConsumer } from './infrastructure/messaging/queueConsumer.js';
+
+import { TranslationController } from './presentation/controllers/translationController.js';
 
 const app = express();
 app.use(express.json());

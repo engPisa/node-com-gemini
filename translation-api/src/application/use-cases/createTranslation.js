@@ -1,4 +1,4 @@
-import { Translation } from "@/domain/translation";
+import { Translation } from '../../domain/translation.js';
 
 export class CreateTranslationUseCase{
     constructor(translationRepository, queueService){
