@@ -1,4 +1,4 @@
-import { amqp } from 'amqplib';
+import amqp from 'amqplib';
 
 export class QueueConsumer {
     constructor(amqpUrl, processResultUseCase){
@@ -14,7 +14,7 @@ export class QueueConsumer {
             const channel = await connection.createChannel();
             await channel.assertQueue(this.queueTranslate, { durable: true });
 
-            channel.consume(this,this.queueTranslate, async(msg) => {
+            channel.consume(this.queueTranslate, async(msg) => {
                 if(msg !== null){
                     const message = JSON.parse(msg.content.toString());
                     console.log(`[📥] API: Resultado recebido para ${message.requestId}`);

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { TranslationRepository } from "@/application/repositories/translationRepository";
-import { Translation } from "@/domain/translation";
+import { TranslationRepository } from "../../application/repositories/translationRepository.js";
+import { Translation } from "../../domain/translation.js";
 
 const prisma = new PrismaClient();
 
