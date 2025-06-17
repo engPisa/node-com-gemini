@@ -1,0 +1,15 @@
+{
+  "name": "translation-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "worker.js",
+  "type": "module",
+  "scripts": {
+    "start": "node worker.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.13.0",
+    "amqplib": "^0.10.4",
+    "dotenv": "^16.4.5"
+  }
+}
