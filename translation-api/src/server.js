@@ -3,18 +3,18 @@ import express from 'express';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import { swaggerOptions } from '../swagger.config.js';
+import { swaggerOptions } from './swagger.config.js';
 
-import { CreateTranslationUseCase } from './application/use-cases/createTranslation.js';
-import { GetTranslationStatusUseCase } from './application/use-cases/getTranslationStatusUseCase.js';
-import { ProcessTranslationResultUseCase } from './application/use-cases/processTranslationResultUseCase.js';
+import { CreateTranslationUseCase } from './src/application/use-cases/createTranslation.js';
+import { GetTranslationStatusUseCase } from './src/application/use-cases/getTranslationStatusUseCase.js';
+import { ProcessTranslationResultUseCase } from './src/application/use-cases/processTranslationResultUseCase.js';
 
-import { PrismaTranslationRepository } from './infrastructure/database/prismaTranslationRepository.js';
-import { QueueService } from './infrastructure/messaging/queueService.js';
-import { QueueConsumer } from './infrastructure/messaging/queueConsumer.js';
+import { PrismaTranslationRepository } from './src/infrastructure/database/prismaTranslationRepository.js';
+import { QueueService } from './src/infrastructure/messaging/queueService.js';
+import { QueueConsumer } from './src/infrastructure/messaging/queueConsumer.js';
 
-import { TranslationController } from './presentation/controllers/translationController.js';
-import { createTranslationRoutes } from './presentation/routes/translatioRoutes.js';
+import { TranslationController } from './src/presentation/controllers/translationController.js';
+import { createTranslationRoutes } from './src/presentation/routes/translatioRoutes.js';
 
 const app = express();
 app.use(express.json());

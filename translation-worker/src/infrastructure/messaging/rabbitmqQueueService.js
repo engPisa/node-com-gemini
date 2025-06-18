@@ -1,5 +1,5 @@
 import amqp from 'amqplib';
-import { QueueService } from '../../application/services/queueService';
+import { QueueService } from '../../application/services/queueService.js';
 
 export class RabbitMQQueueService extends QueueService{
     constructor(url){

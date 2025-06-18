@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { TranslationService } from '../../application/services/translationService';
+import { TranslationService } from '../../application/services/translationService.js';
 
 export class GeminiTranslationService extends TranslationService{
     constructor(apiKey){

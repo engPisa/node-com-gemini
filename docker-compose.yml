@@ -11,7 +11,7 @@ services:
   translation-api:
     build:
       context: ./translation-api
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: translation-api
     ports:
       - "3000:3000"
@@ -28,7 +28,7 @@ services:
   translation-worker:
     build:
       context: ./translation-worker
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: translation-worker
     environment:
       - RABBITMQ_URL=amqp://rabbitmq
