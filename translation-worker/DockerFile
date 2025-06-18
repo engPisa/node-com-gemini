@@ -1,7 +1,5 @@
 # --- ESTÁGIO 1: Builder ---
-FROM node:20-alpine AS builder
-
-RUN apk update && apk upgrade
+FROM node:20-slim AS builder
 
 WORKDIR /app-worker
 
@@ -10,16 +8,12 @@ RUN npm install
 
 COPY . .
 
-
 # --- ESTÁGIO 2: Production ---
-FROM node:20-alpine
-
-RUN apk update && apk upgrade
+FROM node:20-slim
 
 WORKDIR /app-worker
 
 COPY --from=builder /app-worker/node_modules ./node_modules
-
 COPY --from=builder /app-worker/src ./src
 COPY --from=builder /app-worker/src/server.js ./
 

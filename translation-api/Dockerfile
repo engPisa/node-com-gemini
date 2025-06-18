@@ -1,5 +1,7 @@
 # --- ESTÁGIO 1: Builder ---
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
+
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app-api
 
@@ -10,12 +12,14 @@ COPY . .
 
 RUN npm run generate
 
-FROM node:20-alpine
+# --- ESTÁGIO 2: Production ---
+FROM node:20-slim
+
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app-api
 
 COPY --from=builder /app-api/node_modules ./node_modules
-
 COPY --from=builder /app-api/prisma ./prisma
 COPY --from=builder /app-api/src ./src
 COPY --from=builder /app-api/swagger.config.js ./ 

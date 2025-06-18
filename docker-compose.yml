@@ -5,6 +5,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running", "-q"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - translation_net
 
@@ -23,7 +28,8 @@ services:
     networks:
       - translation_net
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   translation-worker:
     build:
@@ -36,7 +42,8 @@ services:
     networks:
       - translation_net
     depends_on:
-      - rabbitmq 
+      rabbitmq:
+        condition: service_healthy
 
 networks:
   translation_net:
