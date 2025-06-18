@@ -26,10 +26,12 @@ export class PrismaTranslationRepository extends TranslationRepository{
 
     async update(translation){
         const dataToUpdate = {
-            status: translation.status
+            status: translation.data.status,
+            translatedText: translation.data.translatedText
         };
-        if(translation.translatedText) dataToUpdate.translatedText = translation.translatedText;
-        if(translation.error) dataToUpdate.error = translation.error;
+        console.log('Resultado da tradução', dataToUpdate)
+        if(translation.data.translatedText) dataToUpdate.translatedText = translation.data.translatedText;
+        if(translation.data.error) dataToUpdate.error = translation.data.error;
         await prisma.translation.update({
             where: { id: translation.id },
             data: dataToUpdate,
