@@ -18,7 +18,7 @@ export class TranslationController{
             const { text, targetLanguage } = req.body;
             const translation = await this.createTranslationUseCase.execute({ text, targetLanguage});
             const baseUrl = `${req.protocol}://${req.get('host')}`;
-            const links = generateHateos(baseUrl, translation.translation.id);
+            const links = generateHateos(baseUrl, translation.id);
 
             return res.status(202).json({
                 message: 'Solicitação de tradução recebida',

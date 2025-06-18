@@ -10,11 +10,23 @@ export class ProcessTranslationResultUseCase{
             return;
         }
 
-        existingTranslation.status = status;
-        existingTranslation.translatedText = translatedText;
-        existingTranslation.error = error;
+        if (status === 'processing' && existingTranslation.status !== 'queued') {
+            console.log(`[➡️] API: Ignorando atualização para 'processing' para o ID ${requestId}, pois o status atual já é '${existingTranslation.status}'.`);
+            return; 
+        }
 
-        await this.translationRepository.update(existingTranslation);
+        if (existingTranslation.status === 'completed' || existingTranslation.status === 'failed') {
+            console.log(`[➡️] API: Ignorando atualização para '${status}' para o ID ${requestId}, pois já está no estado final '${existingTranslation.status}'.`);
+            return; 
+        }
+        
+        const dataToUpdate = {
+            status: status,
+            translatedText: translatedText,
+            error: error
+        };
+
+        await this.translationRepository.update({ id: requestId, data: dataToUpdate });
         console.log(`[💾] API: Status de ${requestId} atualizado para "${status}".`);
     }
 }

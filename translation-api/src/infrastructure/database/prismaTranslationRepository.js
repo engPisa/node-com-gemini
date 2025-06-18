@@ -18,7 +18,7 @@ export class PrismaTranslationRepository extends TranslationRepository{
 
     async findById(id){
         const result = await prisma.translation.findUnique({
-            where: { id }
+            where: { id },
         });
         if (!result) return null;
         return new Translation(result);
@@ -30,7 +30,6 @@ export class PrismaTranslationRepository extends TranslationRepository{
         };
         if(translation.translatedText) dataToUpdate.translatedText = translation.translatedText;
         if(translation.error) dataToUpdate.error = translation.error;
-
         await prisma.translation.update({
             where: { id: translation.id },
             data: dataToUpdate,

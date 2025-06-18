@@ -11,7 +11,7 @@ export class Translation {
         createdAt,
         updateAt
     }){
-        this.id = uuidv4();
+        this.id = id || uuidv4();
         this.originalText = originalText;
         this.targetLanguage = targetLanguage;
         this.status = status;

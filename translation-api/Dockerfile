@@ -25,6 +25,8 @@ COPY --from=builder /app-api/src ./src
 COPY --from=builder /app-api/swagger.config.js ./ 
 COPY --from=builder /app-api/src/server.js ./
 
+RUN chown -R node:node /app-api/prisma
+
 USER node
 
 EXPOSE 3000

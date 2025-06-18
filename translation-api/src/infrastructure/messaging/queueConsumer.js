@@ -4,7 +4,7 @@ export class QueueConsumer {
     constructor(amqpUrl, processResultUseCase){
         this.amqpUrl = amqpUrl;
         this.processResultUseCase = processResultUseCase;
-        this.queueTranslate = 'q.translation.results';
+        this.queueTranslate = 'q.translation.result';
     }
 
     async start(){
