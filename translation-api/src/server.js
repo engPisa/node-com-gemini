@@ -14,7 +14,7 @@ import { QueueService } from './src/infrastructure/messaging/queueService.js';
 import { QueueConsumer } from './src/infrastructure/messaging/queueConsumer.js';
 
 import { TranslationController } from './src/presentation/controllers/translationController.js';
-import { createTranslationRoutes } from './src/presentation/routes/translatioRoutes.js';
+import { createTranslationRoutes } from './src/presentation/routes/translationRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -38,7 +38,8 @@ async function server() {
     );
 
     const openDocs = swaggerJsdoc(swaggerOptions);
-    app.use('/api-docs', swaggerUi.serve. swaggerUi.setup(openDocs));
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openDocs));
+    
 
     const translationRoutes = createTranslationRoutes(translationController)
     app.use(translationRoutes);
