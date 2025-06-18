@@ -24,7 +24,7 @@ services:
       - RABBITMQ_URL=amqp://rabbitmq
       - DATABASE_URL=${DATABASE_URL}
     volumes:
-      - translation_db:/app/prisma
+      - ./translation-api/prisma:/app-api/prisma
     networks:
       - translation_net
     depends_on:
