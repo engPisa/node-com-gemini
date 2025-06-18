@@ -1,13 +1,13 @@
 import 'dotenv/config'
 
-import { ProcessTranslationRequestUseCase } from './src/application/use-cases/processTranslationRequest'
-import { RabbitMQQueueService } from './src/infrastructure/messaging/rabbitmqQueueService'
-import { GeminiTranslationService } from './src/infrastructure/translation/geminiTranslationService'
-import { Consumer } from './src/presentation/consumer'
+import { ProcessTranslationRequestUseCase } from './src/application/use-cases/processTranslationRequest.js'
+import { RabbitMQQueueService } from './src/infrastructure/messaging/rabbitmqQueueService.js'
+import { GeminiTranslationService } from './src/infrastructure/translation/geminiTranslationService.js'
+import { Consumer } from './src/presentation/consumer.js'
 
 async function server() {
     const queueService = new RabbitMQQueueService(process.env.RABBITMQ_URL);
-    await queueService.connect(); // Use o método de instância para conectar
+    await queueService.connect(); 
 
     const translationService = new GeminiTranslationService(process.env.GEMINI_API_KEY);
 

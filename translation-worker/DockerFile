@@ -1,28 +1,22 @@
 # --- ESTÁGIO 1: Builder ---
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
-RUN apk update && apk upgrade
-
-WORKDIR /app
+WORKDIR /app-worker
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-
 # --- ESTÁGIO 2: Production ---
-FROM node:20-alpine
+FROM node:20-slim
 
-RUN apk update && apk upgrade
+WORKDIR /app-worker
 
-WORKDIR /app
-
-COPY --from=builder /app/node_modules ./node_modules
-
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/worker.js ./
+COPY --from=builder /app-worker/node_modules ./node_modules
+COPY --from=builder /app-worker/src ./src
+COPY --from=builder /app-worker/src/server.js ./
 
 USER node
 
-CMD [ "node", "worker.js" ]
+CMD [ "node", "server.js" ]
