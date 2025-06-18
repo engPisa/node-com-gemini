@@ -54,7 +54,7 @@ Siga os passos abaixo para ter todo o ecossistema rodando na sua máquina local.
 
 ```bash
 git clone <URL_DO_SEU_REPOSITORIO>
-cd translation-project
+cd node-com-gemini
 ```
 
 ### 2. Configurar Variáveis de Ambiente
